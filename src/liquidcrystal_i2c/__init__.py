@@ -1,1 +1,1 @@
-from .liquidcrystal_i2c import lcd
+from .liquidcrystal_i2c import LCD

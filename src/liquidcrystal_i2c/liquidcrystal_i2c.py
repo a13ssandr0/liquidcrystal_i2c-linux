@@ -1,6 +1,6 @@
 from smbus import SMBus
 from time import sleep
-from re import findall, match
+from re import match
 
 # other commands
 LCD_CLEARDISPLAY = 0x01
@@ -48,7 +48,7 @@ En = 0b00000100  # Enable bit
 Rw = 0b00000010  # Read/Write bit
 Rs = 0b00000001  # Register select bit
 
-class lcd:
+class LCD:
 
     # constructor also replaces lcd::begin()
     def __init__(self, bus=None, addr=0x27, cols=16, rows=2, charsize=LCD_5x8DOTS):
