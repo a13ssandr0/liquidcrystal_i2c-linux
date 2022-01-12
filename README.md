@@ -7,6 +7,9 @@ With this library you can connect your I2C lcd to your linux box (using availabl
 1. [Supported devices](#supported-devices)
 2. [Installation](#Installation)
 3. [Implementation](#Implementation)
+   - [Getting Started](#getting-started)
+      - [Basic commands](#basic-commands)
+      - [Other commands](#other-commands)
    - [Systemd](#systemd)
 4. [Contributions](#contributions)
 5. [Thanks](#thanks)
@@ -63,9 +66,108 @@ With this library you can connect your I2C lcd to your linux box (using availabl
 
 <!--8. Start trying one of the [**demos**](#demos)-->
 
-# Documentation
-- Initialization
+# Implementation
 
+## Getting Started
+### Basic commands:
+- **Initialization**
+  ```python
+  from liquidcrystal_i2c import LCD
+  ```
+  Initialize the lcd using bus and address you found before.<br>
+  If cols and rows are not specified, library assumes 16x2.<br>
+  ```python
+  lcd = LCD(bus=1, addr=0x3e, cols=16, rows=2)
+  ```
+  At this point the lcd is already cleared and the cursor set to home, so we don't need to call lcd.clear() and lcd.home() again.<br>
+  However when you need to clear all and place the cursor at 0,0 use:
+  ```python
+  lcd.clear()
+  lcd.home()
+  ```
+- **Printing**<br>
+  Place the cursor where you want to print (remember numbers start from zero so 0 will be the first column/row).
+  ```python
+  lcd.setCursor(3,1)
+  lcd.print("Hello, world!")
+  ```
+- **Printing special characters**<br>
+  Thanks to [The Raspberry Pi guy](https://github.com/the-raspberry-pi-guy)'s [library](https://github.com/the-raspberry-pi-guy/lcd) we have two methods to print special characters:
+  
+  1. classic LiquidCrystal_I2C way
+  ```python
+  lcd.setCursor(2,1)
+  lcd.write(0xF7) #prints π symbol
+  ```
+  2. new The Raspberry Pi guy's way
+  ```python
+  lcd.setCursor(2,1)
+  lcd.printExt("Hello {0xF7}")
+  ```
+  Warning: if you use this method with string `format` you need to escape the placeholder using double curly brackets.
+  ```python
+  lcd.setCursor(2,1)
+  lcd.printExt("Hello {{0xF7}} = {0}".format(3.14))
+  ```
+- **Printing custom characters**<br>
+  The HD44780 allows to define 8 custom characters that you can load in CGRAM and call like any other special character.
+  The 8 character slots are numbered from 0 to 7, their placeholders are obviously `{0x00},{0x01},{0x02},{0x03},{0x04},{0x05},{0x06},{0x07}`.
+  ```python
+  # define custom character bitmap
+  # you can design the character using https://maxpromer.github.io/LCD-Character-Creator/ but keep in mind that byte definitions are different between C++ and Python
+  custom_char_cpu = [
+    0b01010,
+    0b11111,
+    0b10001,
+    0b10101,
+    0b10001,
+    0b11111,
+    0b01010,
+    0b00000
+  ]
+  # now it's time to load the character
+  # we will use slot 3
+  lcd.createChar(3, custom_char_cpu)
+  # print the character as all special characters
+  lcd.setCursor(0,0)
+  lcd.printExt("This is a CPU: {0x03}")
+  ```
+### Other commands:
+- Turn backlight on/off
+  ```python
+  lcd.backlight()
+  lcd.noBacklight()
+  ```
+- Show/hide cursor
+  ```python
+  lcd.cursor()
+  lcd.noCursor()
+  ```
+- Turn cursor blinking on/off (needs cursor to be enabled)
+  ```python
+  lcd.blink()
+  lcd.noBlink()
+  ```
+- Show hide all text
+  ```python
+  lcd.display()
+  lcd.noDisplay()
+  ```
+- Scroll the entire display by one place left/right without resending strings
+  ```python
+  lcd.scrollDisplayLeft()
+  lcd.scrollDisplayRight()
+  ```
+- Set autoscroll on/off
+  ```python
+  lcd.autoscroll()
+  lcd.noAutoscroll()
+  ```
+- Set writing direction
+  ```python
+  lcd.leftToRight()
+  lcd.rightToLeft()
+  ```
 
 ## Systemd
 Use the following procedure to run any LCD Python script as a (systemd) service:
@@ -87,7 +189,7 @@ Use the following procedure to run any LCD Python script as a (systemd) service:
    #Group=users
 
    ## Edit the following with the full path to your script
-   ExecStart=/usr/bin/python /path/to/script.py
+   ExecStart=/usr/bin/python3 /path/to/script.py
 
    Restart=always
    RestartSec=5
@@ -111,4 +213,4 @@ Use the following procedure to run any LCD Python script as a (systemd) service:
    ```
 
 # Thanks
-I'd like to thank the creators of the C++ library for their awesome work, and [The Raspberry Pi guy](https://github.com/the-raspberry-pi-guy) for the `print_ext` function, derived from his `lcd_display_extended_string`.
+I'd like to thank the creators of the C++ library for their awesome work, and [The Raspberry Pi guy](https://github.com/the-raspberry-pi-guy) for the `printExt` function, derived from his [`lcd_display_extended_string`](https://github.com/the-raspberry-pi-guy/lcd/blob/master/drivers/i2c_dev.py).
