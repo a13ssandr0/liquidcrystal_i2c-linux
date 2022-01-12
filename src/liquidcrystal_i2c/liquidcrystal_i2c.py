@@ -48,7 +48,7 @@ En = 0b00000100  # Enable bit
 Rw = 0b00000010  # Read/Write bit
 Rs = 0b00000001  # Register select bit
 
-class LCD:
+class LCD():
 
     # constructor also replaces lcd::begin()
     def __init__(self, bus=None, addr=0x27, cols=16, rows=2, charsize=LCD_5x8DOTS):
@@ -119,7 +119,6 @@ class LCD:
 
     def write(self, value):
         self.send(value, Rs)
-        return 1
 
     #********* high level commands, for the user!
     # clear lcd
@@ -182,7 +181,7 @@ class LCD:
         self.command(LCD_ENTRYMODESET | self._displaymode)
 
     # This will 'left justify' text from the cursor
-    def autoscroll(self):
+    def noAutoscroll(self):
         self._displaymode &= ~LCD_ENTRYSHIFTINCREMENT
         self.command(LCD_ENTRYMODESET | self._displaymode)
 
@@ -227,7 +226,7 @@ class LCD:
 
     # put extended string function. Extended string may contain placeholder like {0xFF} for 
     # displaying the particular symbol from the symbol table
-    def print_ext(self, string):
+    def printExt(self, string):
         # Process the string
         while string:
             # Trying to find pattern {0xFF} representing a symbol
