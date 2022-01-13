@@ -2,3 +2,4 @@ test
 .git
 .idea
 dist
+src/liquidcrystal_i2c_linux.egg-info
