@@ -1,4 +1,4 @@
-# LiquidCrystal_I2C-linux
+# LiquidCrystal_I2C-linux [![PyPI version](https://badge.fury.io/py/liquidcrystal-i2c-linux.svg)](https://badge.fury.io/py/liquidcrystal-i2c-linux)
 This repository is a python port of the Arduino [LiquidCrystal_I2C](https://gitlab.informatika.org/IF3111-2017-K01-01/arduino/-/tree/e226a48d5cb3735b7fa6f08e3169188495677fe6/Arduino-LiquidCrystal-I2C-library-master) library.
 
 With this library you can connect your I2C lcd to your linux box (using available GPIOs, but also via the I2C pins of your [VGA port](https://dave.cheney.net/tag/hd44780)) and control it like you did with the C++ library.
