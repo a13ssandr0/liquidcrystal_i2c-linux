@@ -15,17 +15,17 @@ With this library you can connect your I2C lcd to your linux box (using availabl
 5. [Thanks](#thanks)
 
 # Supported devices
-  This library by default will handle most common type of character lcds based on the Hitachi HD44780 with PCF8574 I2C backpack:
+This library by default will handle most common type of character lcds based on the Hitachi HD44780 with PCF8574 I2C backpack:
 
-  40x2, 20x4, 20x2, 16x2, 16x1 (type 2), 16x4
+40x2, 20x4, 20x2, 16x2, 16x1 (type 2), 16x4
 
-  displays not supported by this:
-  - 16x1 (type 1), This uses a discontigous memory for the single line
-    (It's not particularly difficult to make it work, but you have to use it as an 8x2 display)
-  - 40x4 is dual 40x2 displays using dual E signals which is not supported
+displays not supported by this:
+- 16x1 (type 1), This uses a discontigous memory for the single line
+(It's not particularly difficult to make it work, but you have to use it as an 8x2 display)
+- 40x4 is dual 40x2 displays using dual E signals which is not supported
 
-  See here for further explanation of lcd memory addressing:
-  http://web.alfredstate.edu/weimandn/lcd/lcd_addressing/lcd_addressing_index.html
+See here for further explanation of lcd memory addressing:
+http://web.alfredstate.edu/weimandn/lcd/lcd_addressing/lcd_addressing_index.html
 
 
 # Installation
@@ -64,10 +64,7 @@ With this library you can connect your I2C lcd to your linux box (using availabl
   python3 -m pip install liquidcrystal_i2c-linux
   ```
 
-<!--8. Start trying one of the [**demos**](#demos)-->
-
 # Implementation
-
 ## Getting Started
 ### Basic commands:
 - **Initialization**
