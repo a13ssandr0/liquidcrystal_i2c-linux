@@ -211,3 +211,9 @@ Use the following procedure to run any LCD Python script as a (systemd) service:
 
 # Thanks
 I'd like to thank the creators of the C++ library for their awesome work, and [The Raspberry Pi guy](https://github.com/the-raspberry-pi-guy) for the `printExt` function, derived from his [`lcd_display_extended_string`](https://github.com/the-raspberry-pi-guy/lcd/blob/master/drivers/i2c_dev.py).
+
+#
+#
+If you like this library, consider giving me a tip.
+
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/a13ssandr0)
